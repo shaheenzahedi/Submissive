@@ -1,0 +1,193 @@
+﻿@using Kendo.Mvc.UI
+@model Mfr.Admin.Models.Product.ProductViewModel
+<div class="box">
+    <h4>Put picture on the product</h4>
+    <p>
+        *You can put Many Pictures for a product<br />
+        * You can drag &amp; drop for Upload<br/>
+*Maximum size allowed is 5 MB
+    </p>
+</div>
+<div class="k-rtl">
+    <div class="demo-section k-content">
+        @(Html.Kendo().Upload()
+          .Name("files")
+          .Messages(m => m
+          .Select("Insert Picture")
+          .Cancel("Cancel")
+          .Remove("Delete")
+          .Retry("Retry")
+          .StatusFailed("There was an error with uploading")
+          .StatusUploading("Uploading")
+          .HeaderStatusUploaded("Done!")
+          .UploadSelectedFiles("Upload Files"))
+
+          .TemplateId("fileTemplate")
+          .HtmlAttributes(new { accept = "image/*" })
+          .Async(a => a
+              .Save("Submit", "Product", new { @productId = Model.Id })
+              .Remove("Remove", "Product")
+              .AutoUpload(false)
+          )
+          //  .Files(files =>
+          //  {
+          //  foreach (var f in Model.AvailableImageUrl)
+          //  {
+          //      files.Add().Name(Path.GetFileName(f)).Extension(Path.GetExtension(f)).Size(new FileInfo(f).Length);
+          //  }
+
+          //})
+          .Events(events => events
+              .Cancel("onCancel")
+              .Complete("onComplete")
+              .Error("onError")
+              .Progress("onProgress")
+              .Remove("onRemove")
+              .Select("onSelect")
+              .Success("onSuccess")
+              .Upload("onUpload")
+          )
+
+        )
+
+    </div>
+</div>
+<script src=""></script>
+<div class="box">
+
+    <div class="console"></div>
+</div>
+<script id="fileTemplate" type="text/x-kendo-template">
+    <span class='k-progress'></span>
+    <div class='file-wrapper'>
+        <span class='file-icon #=addExtensionClass(files[0].extension)#'></span>
+        <h4 class='file-heading file-name-heading'>Name: #=name#</h4>
+        <h4 class='file-heading file-size-heading'>Size: #=size# bytes</h4>
+        <button type='button' class='k-upload-action'></button>
+    </div>
+</script>
+<script type="text/javascript">
+    function addExtensionClass(extension) {
+        switch (extension) {
+            case '.jpg':
+                return "img-file";
+            default:
+                return "default-file";
+        }
+    }
+</script>
+
+<style>
+    .file-icon {
+        display: inline-block;
+        float: left;
+        width: 48px;
+        height: 48px;
+        margin-left: 10px;
+        margin-top: 13.5px;
+    }
+
+    .img-file {
+        background-image: url(/content/img/Product.png);
+    }
+
+    .default-file {
+        background-image: url(/content/img/Product.png);
+    }
+
+    #example .file-heading {
+        font-family: Arial;
+        font-size: 1.1em;
+        display: inline-block;
+        float: left;
+        width: 60%;
+        margin: 0 0 0 20px;
+        height: 25px;
+        -ms-text-overflow: ellipsis;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    #example .file-name-heading {
+        font-weight: bold;
+        margin-top: 20px;
+    }
+
+    #example .file-size-heading {
+        font-weight: normal;
+        font-style: italic;
+    }
+
+    li.k-file .file-wrapper .k-upload-action {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    li.k-file div.file-wrapper {
+        position: relative;
+        height: 75px;
+    }
+</style>
+</asp:Content>
+<script>
+
+    function onSelect(e) {
+        console.log("Select :: " + getFileInfo(e));
+    }
+
+    function onUpload(e) {
+        var files = e.files;
+
+        $.each(files, function () {
+
+            if (this.size / 1024 / 1024 > 5) {
+                alert("The maximum Size allowed is 5 MB!");
+                e.preventDefault();
+            }
+        });
+    }
+
+    function onSuccess(e) {
+        console.log("Success (" + e.operation + ") :: " + getFileInfo(e));
+    }
+
+    function onError(e) {
+        console.log("Error (" + e.operation + ") :: " + getFileInfo(e));
+    }
+
+    function onComplete(e) {
+        console.log("Complete");
+        var grid = $("#grid").data("Data");
+        grid.dataSource.read();
+    }
+
+    function onCancel(e) {
+        console.log("Cancel :: " + getFileInfo(e));
+    }
+
+    function onRemove(e) {
+        console.log("Remove :: " + getFileInfo(e));
+    }
+
+    function onProgress(e) {
+        console.log("Upload progress :: " + e.percentComplete + "% :: " + getFileInfo(e));
+    }
+    function getUpload() {
+        console.log($("#files").data("kendoUpload"));
+        return $("#files").data("kendoUpload");
+    }
+    function getFileInfo(e) {
+        return $.map(e.files, function (file) {
+            var info = file.name;
+
+            // File size is not available in all browsers
+            if (file.size > 0) {
+                info += " (" + Math.ceil(file.size / 1024) + " KB)";
+            }
+            return info;
+        }).join(", ");
+    }
+</script>

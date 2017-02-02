@@ -1,0 +1,164 @@
+﻿<div>
+
+    <div class="k-rtl">
+        <div id="grid"></div>
+    </div>
+    <script>
+        function addAntiForgeryToken(data) {
+            //if the object is undefined, create a new one.
+            if (!data) {
+                data = {};
+            }
+            //add token
+            var tokenInput = $('input[name=__RequestVerificationToken]');
+            if (tokenInput.length) {
+                data.__RequestVerificationToken = tokenInput.val();
+            }
+            return data;
+        };
+
+
+        $(document).ready(function() {
+            var dataSource = {
+                type:"aspnetmvc-ajax",
+                transport: {
+                    type: "json",
+                    read: {
+                        url: "@Html.Raw(Url.Action("ProductList", "Product"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    destroy: {
+                        url: "@Html.Raw(Url.Action("ProductDelete", "Product"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, type: "number" },
+                            Title: { editable: false, type: "string" },
+                            Descripton: { editable: true, type: "string" },
+                            ProductTypeId: { editable: true, type: "number" },
+                            ProductTypeName: { editable: true, type: "string" },
+                            ImageUrl: { editable: false, type: "string" }
+                        }
+                    }
+                },
+                requestEnd: function(e) {
+                    if (e.type === "create" || e.type === "update") {
+                        this.read();
+                    }
+                },
+                error: function(e) {
+                    alert("There was an error!");
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: 3,
+                serverPaging: true,
+               
+                serverFiltering: true,
+                serverSorting: true
+            };
+
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [3, 6, 9, 12, 15]
+                },
+                selectable: true,
+                height: 550,
+                toolbar: [
+                    {
+                        template:
+                            '<a class="k-button k-grid-custom-command" href="/Product/Create">Add Object</a>'
+                    }
+                ],
+                columns: [
+
+                    {
+                        field: "ProductTypeName",
+                        title: "Category",
+                        width: 75
+
+
+                    },
+                    {
+                        field: "Title",
+                        title: "Title",
+                        width: 75
+                    },
+                    {
+                        field: "Description",
+                        title: "Description",
+                        width: 150
+                    },
+                    {
+                        field: "ImageUrl",
+                        title: "Product Picture",
+                        width: 65,
+                        template: '<img src="#=ImageUrl#" height="100" width="100">',
+                        filterable: false
+                    }
+                    ,
+                    {
+                        field: "Id",
+                        title: "Edit",
+                        width: 40,
+                        template: '<a href="Update/#=Id#">Edit</a>',
+                        filterable: false
+                    },
+                    {
+                        command: [
+                            {
+                                name: "destroy",
+                                text: "Delete"
+                            }
+                        ],
+                        title: "&nbsp;",
+                        width: 50
+                    }
+                ],
+
+                editable: {
+                    confirmation: true,
+                    mode: "inline"
+                }
+
+            });
+
+
+            @*$('a.k-grid-custom-command').click(function(e) {
+
+                $.ajax({
+                    url: "@Html.Raw(Url.Action("Create", "Product"))",
+                    dataType: 'html',
+                    type: 'GET',
+                    cache: false,
+                    traditional: true,
+                    success: function(data) {
+                        // your data could be a View or Json or what ever you returned in your action method
+                        // parse your data here
+                        //alert(data);
+
+                        $('#grid').html(data);
+
+                    }
+                });
+            });*@
+        });
+
+
+
+    </script>
+</div>

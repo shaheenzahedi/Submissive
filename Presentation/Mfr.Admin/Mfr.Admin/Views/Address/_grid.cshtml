@@ -1,0 +1,172 @@
+﻿<div>
+
+    <div class="k-rtl">
+        <div id="grid"></div>
+    </div>
+    <script>
+        function addAntiForgeryToken(data) {
+            //if the object is undefined, create a new one.
+            if (!data) {
+                data = {};
+            }
+            //add token
+            var tokenInput = $('input[name=__RequestVerificationToken]');
+            if (tokenInput.length) {
+                data.__RequestVerificationToken = tokenInput.val();
+            }
+            return data;
+        };
+
+
+        function getState(stateId) {
+            $.ajax({
+                url: '@Url.Action("StateName", "State")',
+                data: { id: stateId },
+                cache: false,
+                type: "GET",
+                success: function(data) {
+                    $.each(data, function(i, state) {
+                        alert(state.text);
+
+                    });
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            var dataSource = {
+                transport: {
+                    type: "json",
+                    read: {
+                        url: "@Html.Raw(Url.Action("AddressList", "Address"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    destroy: {
+                        url: "@Html.Raw(Url.Action("AddressDelete", "Address"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, type: "number" },
+                            Descripton: { editable: true, type: "string" },
+                            CountryId: { editable: true, type: "string" },
+                            StateId: { editable: true, type: "number" },
+                            CityId: { editable: true, type: "number" },
+                            CountryName: { editable: true, type: "string" },
+                            StateName: { editable: true, type: "string" },
+                            CityName: { editable: true, type: "string" }
+                        }
+                    }
+                },
+                requestEnd: function(e) {
+                    if (e.type == "create" || e.type == "update") {
+                        this.read();
+                    }
+                },
+                error: function(e) {
+                    alert("There was an error!");
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: 15,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            };
+
+
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 15, 20, 30, 50]
+                },
+                selectable: true,
+                height: 550,
+                toolbar: [
+                    {
+                        template:
+                            '<a class="k-button k-grid-custom-command" href="/Address/Create">Add Address</a>'
+                    }
+                ],
+                columns: [
+                    {
+                        field: "Description",
+                        title: "Address",
+                        width: "120px"
+                    },
+                    {
+                        field: "CountryName",
+                        title: "Country",
+                        width: 70
+                    },
+                    {
+                        field: "StateName",
+                        title: "State",
+                        width: 50
+                    },
+                    {
+                        field: "CityName",
+                        title: "City",
+                        width: 70
+                    },
+                    {
+                        field: "",
+                        title: "",
+                        width: 50,
+                        template: '<a href="Update/#=Id#">Edit</a>'
+                    },
+                    {
+                        command: [
+                            {
+                                name: "destroy",
+                                text: "Delete"
+                            }
+
+                        ],
+                        title: "&nbsp;",
+                        width: "250px"
+                    }
+                ],
+
+                editable: {
+                    confirmation: false,
+                    mode: "inline"
+                }
+
+            });
+
+
+            @*$('a.k-grid-custom-command').click(function(e) {
+                $.ajax({
+                    url: "@Html.Raw(Url.Action("Create", "Address"))",
+                    dataType: 'html',
+                    type: 'GET',
+                    cache: false,
+                    traditional: true,
+                    success: function(data) {
+                        // your data could be a View or Json or what ever you returned in your action method
+                        // parse your data here
+                        //alert(data);
+
+                        $('#grid').html(data);
+
+                    }
+                });
+            });*@
+        });
+
+
+    </script>
+</div>  

@@ -1,0 +1,86 @@
+﻿@using System.Web.Optimization
+@using Mfr.Admin.App.Extensions
+@using Mfr.Admin.Models.Account
+@{
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+@model Mfr.Admin.Models.Account.EditViewModel
+<section id="container" class="">
+
+        <!--main content start-->
+    <section id="main-content">
+
+        <section class="wrapper">
+            <!-- page start-->
+            <script>
+                var curImage = parent.document.getElementById('currentImg');
+                function showImage(imgName) {
+                    var curImage = document.getElementById('currentImg');
+                    var thePath = 'images/';
+                    var theSource = thePath + imgName; 
+                    curImage.src = theSource;
+                    curImage.alt = imgName;
+                    curImage.title = imgName;
+                }
+            </script>
+            <div class="row">
+
+                <aside class="profile-nav col-lg-3">
+
+                    <section class="panel">
+
+                        <div class="user-heading round">
+                            <a href="#" id="uploader">
+                               
+                                <img src="@Url.Action("SomeImage", "Account", new {imageName = User.Identity.GetUserPictureAvatar()})" alt="" height="40" width="40" >
+                            </a>
+                            <h1>@User.Identity.Name</h1>
+                        </div>
+                    </section>
+                </aside>
+
+                <aside class="profile-info col-lg-9">
+                    <section class="panel">
+                        <div class="bio-graph-heading">
+                            For editting you're user account
+                           change the the calues and click the update button
+
+                        </div>
+                        @Html.Partial("_CredentialsEdit", Model)
+                        
+                    </section>
+                        @Html.Partial("_PasswordEdit", new PasswordViewModel()) 
+                </aside>
+            </div>
+
+            <!-- page end-->
+        </section>
+    </section>
+
+    
+    <!--main content end-->
+</section>
+
+
+
+
+@section contents
+{
+
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.material.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.rtl.min.css"/>
+
+}
+
+@section scripts
+{
+
+
+    <script src="~/Scripts/Kendo/jquery.min.js"></script>
+    <script src="~/Scripts/Kendo/kendo.all.min.js"></script>
+
+
+}
+
+

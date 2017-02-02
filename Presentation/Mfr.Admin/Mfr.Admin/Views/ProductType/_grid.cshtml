@@ -1,0 +1,112 @@
+﻿<div>
+    <div class="k-rtl">
+        <div id="grid"></div>
+    </div>
+
+    <script>
+        function addAntiForgeryToken(data) {
+            //if the object is undefined, create a new one.
+            if (!data) {
+                data = {};
+            }
+            //add token
+            var tokenInput = $('input[name=__RequestVerificationToken]');
+            if (tokenInput.length) {
+                data.__RequestVerificationToken = tokenInput.val();
+            }
+            return data;
+        };
+
+        $(document).ready(function () {
+            var dataSource = {
+                transport: {
+                    type: "json",
+                    read: {
+                        url: "@Html.Raw(Url.Action("ProductTypeList", "ProductType"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                        create: {
+                        url: "@Html.Raw(Url.Action("ProductTypeInsert", "ProductType"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    update: {
+                        url: "@Html.Raw(Url.Action("ProductTypeUpdate", "ProductType"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    destroy: {
+                        url: "@Html.Raw(Url.Action("ProductTypeDelete", "ProductType"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, type: "number" },
+                            Title: { editable: true, type: "string", validation: { required: true } },
+                            Show: { editable: true, type: "boolean" }
+                        }
+                    }
+                },
+                requestEnd: function (e) {
+                    if (e.type == "create" || e.type == "update") {
+                        this.read();
+                    }
+                },
+                pageSize: 15,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            };
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 15, 20, 30, 50]
+                },
+                height: 550,
+                toolbar: [{text : "Add Category", name: "create"}],
+                columns: [
+                    {
+                        field: "Title",
+                        title: "Title",
+                        width: "120px"
+                    },
+                    {
+                        field: "Show",
+                        title: "Show",
+                        width: "120px",
+                        template: '<img src="@Url.Content("~/Content/Image/")active-#=Show#.png" />'
+                    },
+                    { command: [
+                            { name: "edit" ,text: { // sets the text of the "Edit", "Update" and "Cancel" buttons
+                                edit: "Edit",
+                                update: "Update",
+                                cancel: "Cancel"
+                            }}
+                        ],
+                        title: "&nbsp;",
+                        width: "250px"
+                    }
+                ],
+
+                editable: {
+                    confirmation: false,
+                    mode: "inline"
+                }
+            });
+        });
+    </script>
+</div>
+

@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainTopNav.cshtml";
+}
+@using Kendo.Mvc.UI
+@using Mfr.Admin.Models.Account
+@model Mfr.Admin.Models.Account.LoginViewModel
+@{ ViewBag.Title = "Enter Site";}
+
+<div class="container">
+
+    @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {@class = "form-signin", role = "form"}))
+    {
+        @Html.AntiForgeryToken()
+
+        <h2 class="form-signin-heading">Sign-in Now</h2>
+        <div class="login-wrap">
+
+           @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", @placeholder = "User Name" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new {@class = "help-block"})
+
+            @Html.PasswordFor(m => m.Password, new {@class = "form-control", placeholder = "Password", style = "width:100%"})
+            @Html.ValidationMessageFor(m => m.Password, "", new {@class = "help-block"})
+
+
+            <div class="checkbox">
+                @Html.CheckBoxFor(m => m.RememberMe)
+                <span class="pull-right">
+                        @Html.LabelFor(m => m.RememberMe)
+                    </span>
+            </div>
+            @Html.ValidationSummary(true, "", new {@class = "help-block"})
+
+            <input type="submit" value="Enter" class="btn btn-lg btn-shadow btn-default btn-block"/>
+            <br/>
+            <p>
+                @Html.ActionLink("Enter as a new user", "Register")
+            </p>
+            @*<p>Or enter with any social media</p>*@
+        </div>
+        <p>
+            @Html.ActionLink("Forgot you're password", "ForgotPassword")
+        </p>
+
+    }
+    @*<div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>*@
+
+</div>
+

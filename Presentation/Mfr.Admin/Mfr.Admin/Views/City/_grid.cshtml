@@ -1,0 +1,103 @@
+﻿<div>
+    <!--style="margin-top: 30px;"   <- for responsive btn -->
+    <div class="k-rtl">
+        <div id="grid"></div>
+    </div>
+
+    <script>
+        function addAntiForgeryToken(data) {
+            //if the object is undefined, create a new one.
+            if (!data) {
+                data = {};
+            }
+            //add token
+            var tokenInput = $('input[name=__RequestVerificationToken]');
+            if (tokenInput.length) {
+                data.__RequestVerificationToken = tokenInput.val();
+            }
+            return data;
+        };
+
+        $(document).ready(function() {
+            var dataSource = {
+                transport: {
+                    type: "json",
+                    read: {
+                        url: "@Html.Raw(Url.Action("CityList", "City"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, type: "number" },
+                            Title: { editable: false, type: "string" },
+                            Show: { editable: false, type: "boolean" },
+                            StateTitle: { editable: false, type: "string" },
+                            CountryTitle: { editable: false, type: "string" }
+                        }
+                    }
+                },
+                error: function(e) {
+                    alert("There was an error!");
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: 15,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            };
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 15, 20, 30, 50]
+                },
+                height: 550,
+                toolbar: [
+                    {
+                        template:
+                            '<a class="k-button k-grid-custom-command" href="/City/Create">Add City</a>'
+                    }
+                ],
+                columns: [
+                    {
+                        field: "Title",
+                        title: "Title",
+                        width: "80px"
+                    },
+                    {
+                        field: "Show",
+                        title: "Show",
+                        width: "25px",
+                        template: '<img src="@Url.Content("~/Content/Image/")active-#=Show#.png" />'
+                    },
+                    {
+                        field: "StateTitle",
+                        title: "State",
+                        width: 80
+                    },
+                    {
+                        field: "CountryTitle",
+                        title: "Country",
+                        width: 80
+                    },
+                    {
+                        field: "Id",
+                        title: "Edit",
+                        width: 100,
+                        template: '<a href="Edit/#=Id#">Edit</a>'
+                    }
+                ]
+            });
+        });
+    </script>
+</div>
+

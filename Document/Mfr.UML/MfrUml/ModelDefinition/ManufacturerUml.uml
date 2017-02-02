@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/dsltools/UseCaseModel"
+  dslVersion="1.0.0.0"
+  Id="00ab9515-6f65-4113-9c6a-2e4c56b56fc8"
+  name="ManufacturerUml" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <actor
+        Id="9f2caba1-fab0-44bc-a1c6-f965de90f546"
+        name="registered user"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="1e2170a7-7656-48fd-be44-75f1cbe35799"
+            isDerived="false"
+            sourceEndRoleName="registered user"
+            targetEndRoleName="login"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="f80f689e-8e9f-4d28-93e8-f1422293ee31"
+              LastKnownName="login"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c710788c-2e58-4c0b-883f-1feeb52bd2f4"
+                  name="registered user"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8623ba85-c01f-4c74-adb1-72229b3fb39b"
+                  name="login"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="ea94518a-324b-4c46-8fcf-9320704f2916"
+            isDerived="false"
+            sourceEndRoleName="registered user"
+            targetEndRoleName="product"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e3aa43c7-d2a9-4259-b4b9-210527f69abb"
+              LastKnownName="product"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d5ad528d-7ca9-487a-92d6-dae9116fd8a3"
+                  name="registered user"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="25126326-05c2-4893-aac2-f1dd7ad8ba63"
+                  name="product"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="d4ce67d3-417a-467a-bb56-7160f8e166ae"
+            isDerived="false"
+            sourceEndRoleName="registered user"
+            targetEndRoleName="UseCase1"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e64b96e2-5aab-435b-bf12-52cccd4364ea"
+              LastKnownName="store"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b9bd4abd-2a1a-4186-80b1-6a058c97e694"
+                  name="registered user"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="87347b36-ec32-4ffd-ba8c-ac5c33e9b168"
+                  name="UseCase1"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="f3d64d16-4285-40eb-b29c-59ef97d811c7"
+            isDerived="false"
+            sourceEndRoleName="registered user"
+            targetEndRoleName="search"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="1e956864-950e-469d-80bb-d544f4bbdcb7"
+              LastKnownName="advanced search"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1b8d92d6-5922-42db-a1e2-e0d6a052e715"
+                  name="registered user"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="fc771b63-ed70-4963-a7b9-3720beec97a3"
+                  name="search"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="b3a73303-66c0-4b8e-9937-51acb02f9e96"
+        name="administrator"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="cd5b2d2f-ff18-483a-8c03-a3935142e071"
+            isDerived="false"
+            sourceEndRoleName="administrator"
+            targetEndRoleName="UseCase1"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="d80bd4c3-7f10-4139-ad9b-4c38212bbb5a"
+              LastKnownName="permissions"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0c0b4361-245f-4723-ab76-03c41c7c2087"
+                  name="administrator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e8aa8f9c-9566-4c35-bcd9-aff8007d32f3"
+                  name="UseCase1"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="341bfd95-b78e-40a8-a630-5c794eda572b"
+            isDerived="false"
+            sourceEndRoleName="administrator"
+            targetEndRoleName="product"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="69e12b08-c32e-4155-bed8-813007f9a828"
+              LastKnownName="product"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ef5e5140-5997-4ded-8be5-25deae51e687"
+                  name="administrator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="907e1399-b2d8-4b67-bd35-edc461ab7308"
+                  name="product"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="a8e14f0d-e577-4447-be80-fe8ffa980180"
+            isDerived="false"
+            sourceEndRoleName="administrator"
+            targetEndRoleName="login"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="f80f689e-8e9f-4d28-93e8-f1422293ee31"
+              LastKnownName="login"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c1002666-f6e4-436d-9baf-8f128fd3db10"
+                  name="administrator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0eb4e076-1bbf-49c8-b722-fcf0f9747773"
+                  name="login"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="ceb638f2-0323-408a-bd55-9a587f35a94d"
+            isDerived="false"
+            sourceEndRoleName="administrator"
+            targetEndRoleName="product"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="e3aa43c7-d2a9-4259-b4b9-210527f69abb"
+              LastKnownName="product"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="80e016a8-ab27-4cee-9409-13141d79afd6"
+                  name="administrator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="eac88ef5-e926-4728-ab48-4b7f01be1bc0"
+                  name="product"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="5fabe8ea-7583-4c76-acff-9946440271d9"
+            isDerived="false"
+            sourceEndRoleName="administrator"
+            targetEndRoleName="advance search"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="1e956864-950e-469d-80bb-d544f4bbdcb7"
+              LastKnownName="advanced search"
+              LastKnownLocation="ManufacturerUml.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="fdce8b7e-7698-479f-b9e4-cffdf79ec478"
+                  name="administrator"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="204264b1-83f3-4e3c-b4a0-9c98925d5572"
+                  name="advance search"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f80f689e-8e9f-4d28-93e8-f1422293ee31"
+        name="login"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="f5f80d13-6d93-41f0-9499-7dd3d6286f14"
+        name="Actor1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e3aa43c7-d2a9-4259-b4b9-210527f69abb"
+        name="product"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e64b96e2-5aab-435b-bf12-52cccd4364ea"
+        name="store"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1e956864-950e-469d-80bb-d544f4bbdcb7"
+        name="advanced search"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d80bd4c3-7f10-4139-ad9b-4c38212bbb5a"
+        name="permissions"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="d5a03e00-ac22-4d25-a38c-c9e83ae5168e">
+            <useCaseMoniker
+              Id="ad472a59-d5aa-4287-a32c-7ea5b182536f"
+              LastKnownName="active/diactive users"
+              LastKnownLocation="ManufacturerUml.uml" />
+          </include>
+          <include
+            Id="eee18668-7972-4f4a-96c0-da98c45f1e93">
+            <useCaseMoniker
+              Id="846f2b3d-cd5c-498f-89ef-fadbf6c82644"
+              LastKnownName="user permissions"
+              LastKnownLocation="ManufacturerUml.uml" />
+          </include>
+        </additions>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="69e12b08-c32e-4155-bed8-813007f9a828"
+        name="product"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="6f98377e-9a1a-43f4-9b86-3b8a9282b7f1">
+            <useCaseMoniker
+              Id="fb9c0003-8f10-47d6-9740-fce21bb4d64b"
+              LastKnownName="active/diactive  product"
+              LastKnownLocation="ManufacturerUml.uml" />
+          </include>
+        </additions>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="ad472a59-d5aa-4287-a32c-7ea5b182536f"
+        name="active/diactive users"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="fb9c0003-8f10-47d6-9740-fce21bb4d64b"
+        name="active/diactive  product"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="846f2b3d-cd5c-498f-89ef-fadbf6c82644"
+        name="user permissions"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="5ed7dda0-9e0d-405f-bc04-c52c2405d402"
+        name="forgot it"
+        isAbstract="false"
+        isLeaf="false">
+        <extendedCases>
+          <extend
+            Id="ef37c999-cfab-4d1b-aafd-5275b8e04f60">
+            <useCaseMoniker
+              Id="f80f689e-8e9f-4d28-93e8-f1422293ee31"
+              LastKnownName="login"
+              LastKnownLocation="ManufacturerUml.uml" />
+          </extend>
+        </extendedCases>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>

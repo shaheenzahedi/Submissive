@@ -1,0 +1,77 @@
+﻿@using System.Web.Optimization
+@using Kendo.Mvc.UI
+@model IList<Mfr.Admin.Models.User.UserRoleViewModel>
+<section class="panel k-panelbar">
+    <header class="panel-heading">
+        <h3> Edit مجوز های کاربر</h3>
+
+    </header>
+    @using (Html.BeginForm("_UserPermissions", "User", FormMethod.Post))
+    {
+        <section class="panel">
+
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Applied Premission</th>
+                    <th>Premission Names</th>
+                    <th>Base Coding prems</th>
+                    <th>Showing Prems</th>
+                    <th>Activity Perms</th>
+                </tr>
+                </thead>
+
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    <tbody>
+                    <tr>
+                        <td>
+                            @*id*@
+                            @(Html.DisplayFor(modelItem => modelItem[i].RoleId))
+                            @Html.HiddenFor(modelItem => modelItem[i].RoleId)
+                            @Html.HiddenFor(modelItem => modelItem[i].UserId)
+                            @Html.HiddenFor(modelItem => modelItem[i].RoleName)
+                        </td>
+                        <td>
+                            @*Apply Perm*@
+                            @Html.CheckBoxFor(modelItem => modelItem[i].ApplyPrem)
+                        </td>
+                        <td>
+                            @*name*@
+                            @(Html.DisplayFor(modelItem => modelItem[i].RoleName))
+                        </td>
+                        <td>
+                            @*base coding*@
+                            @(Html.Kendo().CheckBoxFor(modelItem => modelItem[i].BaseCoding).HtmlAttributes(new {@disabled = "disabled"}))
+                        </td>
+                        <td>
+                            @*show*@
+                            @(Html.Kendo().CheckBoxFor(modelItem => modelItem[i].Show).HtmlAttributes(new {@disabled = "disabled"}))
+                        </td>
+                        <td>
+                            @*Active*@
+                            @(Html.Kendo().CheckBoxFor(modelItem => modelItem[i].IsActive).HtmlAttributes(new {@disabled = "disabled"}))
+                        </td>
+                    </tr>
+
+                    </tbody>
+                }
+
+            </table>
+            @Html.ValidationSummary();
+            <div class="col-lg-offset-2 col-lg-10">
+                <input type="submit" value="Update" class="btn btn-info"/>
+                <button type="button" class="btn btn-default">@Html.ActionLink("Cancel", "Index", "Home") </button>
+            </div>
+        </section>
+
+
+      
+    }
+</section>
+@*////////////*@
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@*/////////////////////////*@

@@ -1,0 +1,99 @@
+﻿@using System.Web.Optimization
+@using Kendo.Mvc.UI
+@model Mfr.Admin.Models.City.CityCreateOrUpdateViewModel
+
+@Html.ValidationSummary(true)
+<div class="panel-body bio-graph-info" style="background-color: white">
+    <table style="width: 100%;">
+        <tr >
+            <td>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Title, new {@class = "col-md-2 control-label"})
+                    <div class="col-lg-6">
+                        @(Html.Kendo().TextBoxFor(model => model.Title)
+                 .HtmlAttributes(new { style = "width:50%" }))
+                        @Html.ValidationMessageFor(c => c.Title, "", new {@class = "help-block"})
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(m => m.CountryId, new {@class = "col-md-2 control-label"})
+                @(Html.Kendo().DropDownListFor(m => m.CountryId)
+                      .HtmlAttributes(new {style = "width:50%"})
+                      .OptionLabel("Choose the country...")
+                      .DataTextField("Title")
+                      .DataValueField("Id")
+                      .Filter("startswith")
+                      .DataSource(source =>
+                      {
+                          source.Read(read =>
+                          {
+                              read.Action("GetCascadeCountries", "Address");
+                          });
+                      })
+                      )
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.ValidationMessageFor(c => c.CountryId, "", new {@class = "help-block"})
+                @Html.LabelFor(m => m.StateId, new {@class = "col-md-2 control-label"})
+                @(Html.Kendo().DropDownListFor(m => m.StateId)
+
+                      .HtmlAttributes(new {style = "width:50%"})
+                      .OptionLabel("Choose the state...")
+                      .DataTextField("stateTitle")
+                      .DataValueField("stateId")
+                      .Filter("startswith")
+                      .DataSource(source =>
+                      {
+                          source.Read(read =>
+                          {
+                              read.Action("GetCascadeStates", "Address")
+                                  .Data("filterStates");
+                          })
+                              .ServerFiltering(true);
+                      })
+                      .Enable(false)
+                      .AutoBind(false)
+                      .CascadeFrom("CountryId")
+                      )
+                @Html.ValidationMessageFor(c => c.StateId, "", new {@class = "help-block"})
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(p => p.Show)
+                @Html.CheckBoxFor(p => p.Show)
+                @Html.ValidationMessageFor(p => p.Show)
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        function filterStates() {
+            return {
+                state: $("#CountryId").val()
+            }
+        }
+    </script>
+
+</div>
+

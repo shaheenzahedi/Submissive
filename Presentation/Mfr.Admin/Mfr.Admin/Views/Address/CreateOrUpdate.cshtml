@@ -1,0 +1,106 @@
+﻿@using System.Web.Optimization
+@using Kendo.Mvc.UI
+@model Mfr.Admin.Models.Address.CreateViewModel
+
+@Html.ValidationSummary(true)
+
+<div class="panel-body bio-graph-info">
+
+
+    @Html.LabelFor(m => m.CountryId, new { @class = "col-md-2 control-label" })
+    @(Html.Kendo().DropDownListFor(m => m.CountryId)
+          .HtmlAttributes(new { style = "width:50%" })
+          .OptionLabel("Choose the country...")
+          .DataTextField("Title")
+          .DataValueField("Id")
+          .Filter("startswith")
+          .DataSource(source =>
+          {
+              source.Read(read =>
+              {
+                  read.Action("GetCascadeCountries", "Address");
+              });
+          })
+    )
+
+    @Html.ValidationMessageFor(c => c.CountryId, "", new { @class = "help-block" })
+    @Html.LabelFor(m => m.StateId, new { @class = "col-md-2 control-label" })
+    @(Html.Kendo().DropDownListFor(m => m.StateId)
+
+          .HtmlAttributes(new { style = "width:50%" })
+          .OptionLabel("Choose the state")
+          .DataTextField("stateTitle")
+          .DataValueField("stateId")
+          .Filter("startswith")
+          .DataSource(source =>
+          {
+              source.Read(read =>
+              {
+                  read.Action("GetCascadeStates", "Address")
+                      .Data("filterStates");
+              })
+                  .ServerFiltering(true);
+          })
+          .Enable(false)
+          .AutoBind(false)
+          .CascadeFrom("CountryId")
+    )
+    @Html.ValidationMessageFor(c => c.StateId, "", new { @class = "help-block" })
+    <script>
+        function filterStates() {
+            return {
+                state: $("#CountryId").val()
+            }
+        }
+    </script>
+
+    @Html.LabelFor(m => m.CityId, new { @class = "col-md-2 control-label" })
+    @(Html.Kendo().DropDownListFor(m => m.CityId)
+
+          .HtmlAttributes(new { style = "width:50%" })
+          .OptionLabel("Choose the city")
+          .DataTextField("cityTitle")
+          .DataValueField("cityId")
+          .Filter("startswith")
+          .DataSource(source =>
+          {
+              source.Read(read =>
+              {
+                  read.Action("GetCascadeCities", "Address")
+                      .Data("filterCities");
+              })
+                  .ServerFiltering(true);
+
+          })
+          .Enable(false)
+          .AutoBind(false)
+          .CascadeFrom("StateId")
+
+    )
+
+    @Html.ValidationMessageFor(c => c.CityId, "", new { @class = "help-block" })
+
+    <div class="form-group">
+        <div class="k-rtl">
+            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+            @Html.TextAreaFor(c => c.Description, new { @class = "k-textbox", style = "width: 50%;" })
+            <div class="col-lg-6">
+                @Html.ValidationMessageFor(c => c.Description, "", new { @class = "help-block" })
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function filterCities() {
+            return {
+                city: $("#StateId").val()
+            };
+        }
+    </script>
+</div>
+@*////////////*@
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@*/////////////////////////*@

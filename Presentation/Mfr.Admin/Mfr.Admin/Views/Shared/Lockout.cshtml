@@ -1,0 +1,32 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    Layout = "~/Views/Shared/_MainTopNav.cshtml";
+}
+
+<table style="width:100%">
+    <tr>
+        <td colspan="2">
+            <p style="text-align: right; font-size: 30px;">Warning </p>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 50%">
+
+            <p style="text-align: right; font-size: 18px;">
+                You're Blocked For now,<br />
+                Please try again later
+            </p>
+            <br>
+            <form action="../">
+                <input type="submit" class="btn btn-shadow btn-info" value="Back to login page">
+            </form>
+        </td>
+
+        <td style="width: 50%">
+            <img src="@Url.Content("~/Content/Img/Lockout.png")" alt="Email Image" width="200" height="180" />
+
+        </td>
+    </tr>
+
+</table>

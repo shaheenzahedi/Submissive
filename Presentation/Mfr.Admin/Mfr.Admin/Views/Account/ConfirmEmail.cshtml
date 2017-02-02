@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/_MainTopNav.cshtml";
+}
+
+<table style="width:100%">
+    <tr>
+        <td colspan="2">
+            <p style="text-align: right; font-size: 30px;">confirmation E-Mail </p>
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 50%">
+
+            <p>
+                Thank you for confirming our email،<br />So for confirm plz click on the link below<br />@Html.ActionLink("Click HERE to enter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+            </p>
+            <br>
+            <form action="../">
+                <input type="submit" class="btn btn-shadow btn-info" value="Return to home">
+            </form> 
+        </td>
+
+        <td style="width: 50%">
+            <img src="@Url.Content("~/Content/Img/Email.png")" alt="Email Image" width="200" height="180" />
+
+        </td>
+    </tr>
+
+</table>

@@ -1,0 +1,144 @@
+﻿@using System.Web.Optimization
+@using Kendo.Mvc.UI
+@model Mfr.Admin.Models.Product.ProductViewModel
+<div>
+
+    <div class="k-rtl">
+        <div id="grid"></div>
+    </div>
+    <script>
+        function addAntiForgeryToken(data) {
+            //if the object is undefined, create a new one.
+            if (!data) {
+                data = {};
+            }
+            //add token
+            var tokenInput = $('input[name=__RequestVerificationToken]');
+            if (tokenInput.length) {
+                data.__RequestVerificationToken = tokenInput.val();
+            }
+            return data;
+        };
+
+
+        $(document).ready(function() {
+            var dataSource = {
+                transport: {
+                    type: "json",
+                    read: {
+                        url: "@Html.Raw(Url.Action("GetImagesByProductId", "Product", new { @id = Model.Id }))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    destroy: {
+                        url: "@Html.Raw(Url.Action("RemoveImagesByProductId", "Product"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, type: "number" },
+                            ImageUrl: { editable: false, type: "string" },
+                            OriginalFileName: { editable: true, type: "string" }
+
+                        }
+                    }
+                },
+                requestEnd: function(e) {
+                    if (e.type == "create" || e.type == "update") {
+                        this.read();
+                    }
+                },
+                error: function(e) {
+                    alert("There was an error!");
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: 5,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            };
+
+
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 15, 20, 30, 50]
+                },
+                selectable: true,
+                height: 550,
+                columns: [
+                     {
+                         field: "ImageUrl",
+                         title: "Product Image",
+                         width: 50,
+                         template: '<img src="#=ImageUrl#" height="100" width="100">'
+                    },
+                    {
+                        field: "OriginalFileName",
+                        title: "Title",
+                        width: 50
+                    },
+                    {
+                        command: [
+                            {
+                                name: "destroy",
+                                text: "Delete"
+                            }
+                        ],
+                        title: "&nbsp;",
+                        width: "250px"
+                    }
+                ],
+
+                editable: {
+                    confirmation: false,
+                    mode: "inline"
+                }
+
+            });
+        });
+    </script>
+</div>
+
+
+
+
+
+
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/Kendo/jquery.min.js"></script>
+    <script src="~/Scripts/Kendo/kendo.all.min.js"></script>
+
+}
+
+@section contents
+{
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.material.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.rtl.min.css" />
+}
+
+
+
+
+
+
+
+
+

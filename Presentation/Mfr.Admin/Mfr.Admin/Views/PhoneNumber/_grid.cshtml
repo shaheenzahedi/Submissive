@@ -1,0 +1,113 @@
+﻿<div>
+    <div class="k-rtl">
+        <div id="grid"></div>
+    </div>
+
+    <script>
+        function addAntiForgeryToken(data) {
+            //if the object is undefined, create a new one.
+            if (!data) {
+                data = {};
+            }
+            //add token
+            var tokenInput = $('input[name=__RequestVerificationToken]');
+            if (tokenInput.length) {
+                data.__RequestVerificationToken = tokenInput.val();
+            }
+            return data;
+        };
+
+        $(document).ready(function () {
+            var dataSource = {
+                transport: {
+                    type: "json",
+                    read: {
+                        url: "@Html.Raw(Url.Action("PhoneNumberList", "PhoneNumber"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                        create: {
+                        url: "@Html.Raw(Url.Action("PhoneNumberInsert", "PhoneNumber"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    update: {
+                        url: "@Html.Raw(Url.Action("PhoneNumberUpdate", "PhoneNumber"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    destroy: {
+                        url: "@Html.Raw(Url.Action("PhoneNumberDelete", "PhoneNumber"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, type: "number" },
+                            Number: { editable: true, type: "number", validation: { required: true, min: 1 } },
+                            UserId: { editable: false, type: "number" },
+                            UserApplicationId:{editable:false,type:"number"}
+                        }
+                    }
+                },
+                requestEnd: function (e) {
+                    if (e.type == "create" || e.type == "update") {
+                        this.read();
+                    }
+                },
+                error: function (e) {
+                    alert("There was an error!");
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: 15,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            };
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 15, 20, 30, 50]
+                },
+                height: 550,
+                toolbar: [{ name: "create" , text: "Add Phone Number"}],
+                columns: [
+                    {
+                        field: "Number",
+                        title: "Mobile Number",
+                        width: "250px"
+                    },
+                    {
+                        command: [
+                             {
+                                 name: "edit", text: { // sets the text of the "Edit", "Update" and "Cancel" buttons
+                                     edit: "Edit",
+                                     update: "Update",
+                                     cancel: "Cancel"
+                                 }
+                             }
+                        ],
+                        Number: "&nbsp;", width: "250px"
+                    }
+                ],
+
+                editable: {
+                    confirmation: false,
+                    mode: "inline"
+                }
+            });
+        });
+    </script>
+</div>

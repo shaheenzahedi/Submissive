@@ -1,0 +1,130 @@
+﻿@using System.Web.Optimization
+@using Kendo.Mvc.UI
+@model Mfr.Admin.Models.Product.ProductViewModel
+@{
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+
+<!DOCTYPE html>
+<body>
+
+    <div id="example">
+        <div class="demo-section k-content">
+            <div id="tabstrip">
+                <ul>
+                    <li class="k-state-active">
+                       Information Form
+                    </li>
+                    <li>
+                        Insert Picture
+                    </li>
+
+                </ul>
+                <div>
+                    @using (Html.BeginForm("Update", "Product", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.Partial("_CredentialsForm", Model)
+
+                            <input type="submit" value="Update" class="btn btn-info" />
+                            <button type="button" class="btn btn-default">@Html.ActionLink("Cancel", "Index", "Home") </button>
+
+                    }
+                </div>
+                <div>
+                    @Html.Partial("_InsertPicture", Model)
+                    @Html.Partial("_PictureGrid", Model)
+
+
+                </div>
+            </div>
+        </div>
+        <style>
+            .k-tabstrip > .k-content {
+                padding: 1em;
+            }
+
+            .specification {
+                max-width: 670px;
+                margin: 10px 0;
+                padding: 0;
+            }
+
+                .specification dt, dd {
+                    max-width: 140px;
+                    float: left;
+                    margin: 0;
+                    padding: 5px 0 8px 0;
+                }
+
+                .specification dt {
+                    clear: left;
+                    width: 100px;
+                    margin-right: 7px;
+                    padding-right: 0;
+                    opacity: 0.7;
+                }
+
+                .specification:after, .wrapper:after {
+                    content: ".";
+                    display: block;
+                    clear: both;
+                    height: 0;
+                    visibility: hidden;
+                }
+        </style>
+    </div>
+    <script>
+        $(document).ready(function () {
+            function onSelect(e) {
+                console.log("Selected: " + $(e.item).find("> .k-link").text());
+            }
+
+            function onShow(e) {
+                console.log("Shown: " + $(e.item).find("> .k-link").text());
+            }
+
+            function onActivate(e) {
+                console.log("Activated: " + $(e.item).find("> .k-link").text());
+            }
+
+            function onContentLoad(e) {
+                console.log("Content loaded in <b>" + $(e.item).find("> .k-link").text() + "</b> and starts with <b>" + $(e.contentElement).text().substr(0, 20) + "...</b>");
+            }
+
+            function onError(e) {
+                console.error("Loading failed with " + e.xhr.statusText + " " + e.xhr.status);
+            }
+
+            $("#tabstrip").kendoTabStrip({
+                select: onSelect,
+                activate: onActivate,
+                show: onShow,
+                contentLoad: onContentLoad,
+                error: onError,
+                contentUrls: [, "../content/web/tabstrip/ajax/ajaxContent1.html", "error.html"]
+            });
+        });
+    </script>
+
+</body>
+
+
+
+
+@section scripts
+{
+    <script src="~/Scripts/Kendo/jquery.min.js"></script>
+    <script src="~/Scripts/Kendo/kendo.all.min.js"></script>
+
+}
+
+@section contents
+{
+    <link rel="stylesheet" href="~/Content/kendo/kendo.common.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.material.min.css" />
+    <link rel="stylesheet" href="~/Content/kendo/kendo.rtl.min.css"/>
+
+<link rel="stylesheet" href="~/Content/kendo/kendo.default.mobile.min.css" />
+}
+
+

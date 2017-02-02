@@ -1,0 +1,135 @@
+﻿<div>
+    <div class="k-rtl">
+        <div id="grid"></div>
+    </div>
+
+    <script>
+        function addAntiForgeryToken(data) {
+            //if the object is undefined, create a new one.
+            if (!data) {
+                data = {};
+            }
+            //add token
+            var tokenInput = $('input[name=__RequestVerificationToken]');
+            if (tokenInput.length) {
+                data.__RequestVerificationToken = tokenInput.val();
+            }
+            return data;
+        };
+
+        $(document).ready(function () {
+            var dataSource = {
+                transport: {
+                    type: "json",
+                    read: {
+                        url: "@Html.Raw(Url.Action("CommentList", "Comment"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    update: {
+                        url: "@Html.Raw(Url.Action("CommentUpdate", "Comment"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    },
+                    destroy: {
+                        url: "@Html.Raw(Url.Action("CommentDelete", "Comment"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { type: "number" },
+                            ProductName: { editable: false, type: "string"},
+                            ProductPicture: { editable: false, type: "string"},
+                            Text: { editable: false, type: "string"},
+                            AdminConfirm: { editable: true, type: "boolean" }
+                        }
+                    }
+                },
+                requestEnd: function (e) {
+                    if (e.type === "create" || e.type === "update") {
+                        this.read();
+                    }
+                },
+                error: function (e) {
+                    alert("خطا ای رخ داده است");
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: 15,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            };
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 15, 20, 30, 50]
+                },
+                height: 550,
+                columns: [
+                    {
+                        field: "ProductName",
+                        title: "Product Name",
+                        width: "90px"
+                    },
+                   {
+                       field: "ProductPicture",
+                       title: "Product Picture",
+                       width: "100px",
+                       template: '<img src="#=checkNull(ProductPicture)#" style="width: 100px; height: 100px" />'
+                   },
+                    {
+                        field: "Text",
+                        title: "Comment",
+                        width: "180px"
+                    },
+
+
+                     {
+                         field: "AdminConfirm",
+                         title: "Admin Confirm",
+                         width: "70px",
+                         template: '<img src="@Url.Content("~/Content/Image/")active-#=AdminConfirm#.png" />'
+                     },
+                    {
+                        command: [
+                            {
+                                name: "edit" , text: { // sets the text of the "Edit", "Update" and "Cancel" buttons
+                                    edit: "Detail",
+                                    update: "Update",
+                                    cancel: "Cancel"
+                                }
+                            },
+                            {name: "destroy", text:"Delete"}
+
+                        ],
+                        title: "&nbsp;", width: "250px"
+                    }
+                ],
+
+                editable  : {
+                    mode : "popup",
+                    window : {
+                        title: "Comment Confirmation form"
+                    }
+                }, cancel: function (e) {
+                    $('#grid').data('kendoGrid').dataSource.cancelChanges();
+                }
+            });
+        });
+        function checkNull(item) {
+            return item === null ? "/Content/img/Bulb.png" : "/App_Themes/Images/" + item ;
+        }
+    </script>
+</div>

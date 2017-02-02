@@ -1,0 +1,104 @@
+﻿
+<div>
+    <div class="k-rtl">
+        <div id="grid"></div>
+    </div>
+    <script>
+        function addAntiForgeryToken(data) {
+            //if the object is undefined, create a new one.
+            if (!data) {
+                data = {};
+            }
+            //add token
+            var tokenInput = $('input[name=__RequestVerificationToken]');
+            if (tokenInput.length) {
+                data.__RequestVerificationToken = tokenInput.val();
+            }
+            return data;
+        };
+
+        $(document).ready(function () {
+            var dataSource = {
+                transport: {
+                    type: "json",
+                    read: {
+                        url: "@Html.Raw(Url.Action("UserList", "User"))",
+                        type: "POST",
+                        dataType: "json",
+                        data: addAntiForgeryToken
+                    }
+                },
+                schema: {
+                    data: "Data",
+                    total: "Total",
+                    errors: "Errors",
+                    model: {
+                        id: "Id",
+                        fields: {
+                            Id: { editable: false, type: "number" },
+                            FName: { editable: false, type: "string" },
+                            LName: { editable: false, type: "string" },
+                            AvatarUrl: { editable: false, type: "string" },
+                            IsActive: {editable: false, type: "boolean"}
+                        }
+                    }
+                },
+                requestEnd: function (e) {
+                    if (e.type == "create" || e.type == "update") {
+                        this.read();
+                    }
+                },
+                error: function (e) {
+                    alert("There was an error!");
+                    // Cancel the changes
+                    this.cancelChanges();
+                },
+                pageSize: 15,
+                serverPaging: true,
+                serverFiltering: true,
+                serverSorting: true
+            };
+            $("#grid").kendoGrid({
+                dataSource: dataSource,
+                pageable: {
+                    refresh: true,
+                    pageSizes: [10, 15, 20, 30, 50]
+                },
+                height: 550,
+                //toolbar: [{ name: "create" , text: "New"}],
+                columns: [
+                    {
+                        field: "FName",
+                        title: "First Name",
+                        width: "70px"
+                    },
+                    {
+                        field: "LName",
+                        title: "Last Name",
+                        width: "70px"
+                    },
+                    {
+                        field: "AvatarUrl",
+                        title: "Avatar Url",
+                        width: "50px",
+                        template:
+                            '<img src="#=checkNull(AvatarUrl)#" style="width: 100px; height: 100px" />'
+                    },
+                    {
+                        field: "Id",
+                        title: "Edit",
+                        width: "100px",
+                        template: '<a href="EditCredentials/#=Id#">Edit</a>'
+                    }
+                ],
+                editable: {
+                    confirmation: false,
+                    mode: "inline"
+                }
+            });
+        });
+           function checkNull(item) {
+               return item === null ? "/Content/img/NoProfilePicture.png" : "/App_Themes/Images/"+item;
+    }
+    </script>
+</div>

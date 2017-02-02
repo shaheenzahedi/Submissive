@@ -1,0 +1,83 @@
+﻿@model Mfr.Admin.Models.UserViewModel
+<section class="panel k-panelbar">
+    <header class="panel-heading">
+        <h3>اطلاعات حساب کاربری</h3>
+
+    </header>
+    @using (Html.BeginForm("EditCredentials", "User", FormMethod.Post, new {@class = "form-horizontal", role = "form", enctype = "multipart/form-data"}))
+    {
+        <div class="panel-body bio-graph-info">
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.UserName, new {@class = "col-md-2 control-label"})
+                <div class="col-lg-6">
+                    @Html.TextBoxFor(m => m.UserName, new {@class = "k-textbox", style = "width:50%"})
+                    @Html.ValidationMessageFor(c => c.UserName, "", new {@class = "help-block"})
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.FName, new {@class = "col-md-2 control-label"})
+                <div class="col-lg-6">
+                    @Html.TextBoxFor(m => m.FName, new {@class = "k-textbox", style = "width:50%"})
+                    @Html.ValidationMessageFor(c => c.FName, "", new {@class = "help-block"})
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.LName, new {@class = "col-md-2 control-label"})
+                <div class="col-lg-6">
+                    @Html.TextBoxFor(m => m.LName, new {@class = "k-textbox", style = "width:50%"})
+                    @Html.ValidationMessageFor(c => c.LName, "", new {@class = "help-block"})
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.BirthDate, new {@class = "col-md-2 control-label"})
+                <div class="col-lg-6">
+                    @Html.TextBoxFor(m => m.BirthDate, new {@class = "k-textbox", style = "width:50%"})
+                    @Html.ValidationMessageFor(c => c.BirthDate, "", new {@class = "help-block"})
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(m => m.Phonenumber, new {@class = "col-md-2 control-label"})
+                <div class="col-lg-6">
+                    @Html.TextBoxFor(m => m.Phonenumber, new {@class = "k-textbox", style = "width:50%"})
+                    @Html.ValidationMessageFor(c => c.Phonenumber, "", new {@class = "help-block"})
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    <div class="col-lg-6">
+                        <img style="width: 100px; height: 100px; margin-right: 250px" />
+                    </div>
+                </div>*@
+
+            <label class="col-lg-2 control-label">برای تغییر تصویر پروفایل</label>
+            <div class="editor-field">
+
+                @Html.TextBox("file", "", new { type = "file", @accept = "image/*" })
+                @Html.ValidationMessage("Picture", "", new {@class = "help-block"})
+            </div>
+
+
+            <div class="col-lg-offset-2 col-lg-10">
+                <input type="submit" value="Update" class="btn btn-info"/>
+                <button type="button" class="btn btn-default">@Html.ActionLink("Cancel", "Index", "Home") </button>
+            </div>
+
+        </div>
+        <script>
+        $(document).ready(function() {
+            $('#@Html.IdFor(p => p.BirthDate)').kendoDatePicker();
+
+            $('#@Html.IdFor(p => p.Phonenumber)').kendoMaskedTextBox({
+                mask: "0000-000-00-00"
+            });
+        });
+        </script>
+    }
+</section>
+@*////////////*@
+<script src="~/Scripts/jquery.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+@*/////////////////////////*@
